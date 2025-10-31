@@ -43,7 +43,7 @@ if menu == "📝 Fill Form":
 
     st.subheader("Personal Details")
     name = st.text_input("Name")
-    gender = st.selectbox("Gender", ["Male", "Female", "Other"])
+    gender = st.radio("Gender", ["Male", "Female", "Other"])
     age_years = st.number_input("Age (Years)", 0, 120, 0)
     age_months = st.number_input("Age (Months)", 0, 11, 0)
     contact = st.text_input("Contact Number")
