@@ -28,6 +28,11 @@ def save_data(new_entry):
     else:
         df_new.to_csv(FILE_PATH, index=False)
 
+# -------------------- Session State --------------------
+
+if "form_submitted" not in st.session_state:
+    st.session_state.form_submitted = False
+
 # -------------------- UI Layout --------------------
 
 st.title("Insurance Automation System")
@@ -35,10 +40,23 @@ st.title("Insurance Automation System")
 menu = st.sidebar.selectbox("Menu", ["📝 Fill Form", "📊 Admin Dashboard"])
 
 # ==========================================================
-# ====================== FORM PAGE =========================
+# ====================== FORM PAGE ==========================
 # ==========================================================
 
 if menu == "📝 Fill Form":
+
+    # ---------- THANK YOU PAGE ----------
+    if st.session_state.form_submitted:
+        st.success("✅ Your response has been recorded!")
+
+        if st.button("Submit another response"):
+            st.session_state.form_submitted = False
+            st.rerun()
+
+        st.stop()  # prevent form from rendering
+
+
+    # ---------- FORM PAGE ----------
     st.header("Insurance Form")
 
     st.subheader("Personal Details")
@@ -79,9 +97,9 @@ if menu == "📝 Fill Form":
         }
 
         save_data(entry)
-        st.success("✅ Form submitted successfully!")
-        st.write("### Submitted Data Preview:")
-        st.write(pd.DataFrame([entry]))
+        st.session_state.form_submitted = True
+        st.rerun()
+
 
 # ==========================================================
 # ====================== ADMIN DASHBOARD ===================
@@ -139,3 +157,4 @@ if menu == "📊 Admin Dashboard":
         st.subheader("Summary")
         st.write(f"Total Records: **{len(df)}**")
         st.write(f"Filtered Records: **{len(filtered_df)}**")
+
