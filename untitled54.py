@@ -51,7 +51,7 @@ if menu == "📝 Fill Form":
     policy_number = st.text_input("Policy Number")
     address = st.text_area("Current Address")
     occupation = st.text_input("Occupation")
-    dob = st.date_input("Date of Birth")
+    dob = st.text_input("Date of Birth")
 
     st.subheader("Hospital / Insurer Details")
     hospital_name = st.text_input("Hospital Name")
